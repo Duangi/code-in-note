@@ -13,8 +13,14 @@ app.all('/upload-file',(request,response)=>{
     response.setHeader('Access-Control-Allow-Origin','*');
     response.setHeader('Access-Control-Allow-Headers','*');
 
+    console.log(request.method)
+    if(request.method === 'OPTIONS'){
+        response.sendStatus(200)
+        return
+    }
     // 获取代码类型和代码字符串
     const {codeType,codeString} = request.body
+    console.log(request.body)
     // 判断系统是否支持运行该代码
     if( Object.keys(codeExtensions).includes(codeType.toLowerCase())){
         const extension = codeExtensions[codeType]
@@ -35,7 +41,7 @@ app.all('/upload-file',(request,response)=>{
         return
     }
     
-    response.send("HELLO AXIOS");
+    // response.send("HELLO AXIOS");
 });
 app.all('/run-file',(request,response)=>{
     //设置允许跨域
