@@ -47,7 +47,12 @@ app.all('/run-file',(request,response)=>{
     //设置允许跨域
     response.setHeader('Access-Control-Allow-Origin','*');
     response.setHeader('Access-Control-Allow-Headers','*');
-
+    if(request.method === 'OPTIONS'){
+        response.sendStatus(200)
+        return
+    }
+    console.log(request.body)
+    // response.send("HELLO AXIOS");
     const {fileName} = request.body
     const codeRunner = new CodeRunner()
     const result = codeRunner.run(fileName)
